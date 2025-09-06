@@ -248,8 +248,33 @@ function __TabTomlLexer(_str) constructor {
 			_isNumericKey = true;
 		}
 	
-		while(!__IsSpaceOrTab((_charCode))) {
+		while(!EOF()) {
+			if (__IsSpaceOrTab(_charCode)) {
+				if (!buffer_peek(__buff, buffer_tell(__buff), buffer_u8) == ord(".")) {
+					break;
+				}
+
+				NextCharCode();	
+				while(__IsWhiteSpace()) {
+					NextCharCode();
+				}			
+				
+				_charCode = CurrentCharCode();
+
+				if (_charCode == ord("=")) {
+					buffer_seek(__buff, buffer_seek_relative, -1);
+					break;
+				}
+			}
+
 			if (_charCode == ord(".")) {
+				if (__IsWhiteSpace(buffer_peek(__buff, buffer_tell(__buff), buffer_u8))) {
+					NextCharCode();
+					while(__IsWhiteSpace(buffer_peek(__buff, buffer_tell(__buff), buffer_u8))) {
+						NextCharCode();
+					}
+				} 
+				
 				__peekType = __TabTomlType.KEY_TARGET_CHANGE;
 			} else {
 				if (__IsWhiteSpace(_charCode)) {
@@ -471,41 +496,42 @@ function __TabTomlLexer(_str) constructor {
 		__peekType = __TabTomlType.VALUE_INTEGER;
 
 		// Handle exotic numbers first
-		switch(NextCharCode()) {
-			case ord("x"): // Hex
-				NextCharCode();
-				_pos = buffer_tell(__buff)-1;
-				while(!__IsWhiteSpace(CurrentCharCode())) {
+		if (!EOF()) {
+			switch(NextCharCode()) {
+				case ord("x"): // Hex
 					NextCharCode();
-				}
-				
-				__peekValue = string(__HexToDec(string_replace_all(__BufferToString(_pos, buffer_tell(__buff)-_pos-1), "_", "")));
-			return;
-			case ord("o"): // Octal
-				NextCharCode();
-				_pos = buffer_tell(__buff)-1;
-				while(!__IsWhiteSpace(CurrentCharCode())) {
+					_pos = buffer_tell(__buff)-1;
+					while(!__IsWhiteSpace(CurrentCharCode())) {
+						NextCharCode();
+					}
+					
+					__peekValue = string(__HexToDec(string_replace_all(__BufferToString(_pos, buffer_tell(__buff)-_pos-1), "_", "")));
+				return;
+				case ord("o"): // Octal
 					NextCharCode();
-				}
-				
-				__peekValue = string(__OctToDec(__BufferToString(_pos, buffer_tell(__buff)-_pos-1)));
-			break;
-			case ord("b"): // Binary
-				NextCharCode();
-				_pos = buffer_tell(__buff)-1;
-				while(!__IsWhiteSpace(CurrentCharCode())) {
+					_pos = buffer_tell(__buff)-1;
+					while(!__IsWhiteSpace(CurrentCharCode())) {
+						NextCharCode();
+					}
+					
+					__peekValue = string(__OctToDec(__BufferToString(_pos, buffer_tell(__buff)-_pos-1)));
+				break;
+				case ord("b"): // Binary
 					NextCharCode();
-				}
-				
-				__peekValue = string(__BinToDec(__BufferToString(_pos, buffer_tell(__buff)-_pos-1)));
-			break;
-			default:
-				// Reverse
-				buffer_seek(__buff, buffer_seek_relative, -2);
-				NextCharCode();
-			break;
+					_pos = buffer_tell(__buff)-1;
+					while(!__IsWhiteSpace(CurrentCharCode())) {
+						NextCharCode();
+					}
+					
+					__peekValue = string(__BinToDec(__BufferToString(_pos, buffer_tell(__buff)-_pos-1)));
+				break;
+				default:
+					// Reverse
+					buffer_seek(__buff, buffer_seek_relative, -2);
+					NextCharCode();
+				break;
+			}
 		}
-
 		if (CurrentCharCode() == ord("+") || CurrentCharCode() == ord("-")) {
 			_sign = chr(CurrentCharCode());
 			NextCharCode();

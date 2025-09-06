@@ -14,6 +14,7 @@
   ],
   "ForcedPrefabProjectReferences":[],
   "IncludedFiles":[
+    {"$GMIncludedFile":"","%Name":"Basic Table.toml","CopyToMask":-1,"filePath":"datafiles/test_cases","name":"Basic Table.toml","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
     {"$GMIncludedFile":"","%Name":"Basic.toml","CopyToMask":-1,"filePath":"datafiles/test_cases","name":"Basic.toml","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
     {"$GMIncludedFile":"","%Name":"TableA.toml","CopyToMask":-1,"filePath":"datafiles/test_cases","name":"TableA.toml","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
     {"$GMIncludedFile":"","%Name":"TableB.toml","CopyToMask":-1,"filePath":"datafiles/test_cases","name":"TableB.toml","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
