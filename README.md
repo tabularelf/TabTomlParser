@@ -5,4 +5,4 @@ This covers the full range of the spec and has been tested roughly based on the 
 ## Main caveats
 
 ### Empty key names
-As GameMaker does not support empty key names in structs, any keys with an empty key name will be instead set as `$$__INTENTIONALLY_NULL_KEY__$$`.
+As GameMaker does not support empty key names in structs, any keys with an empty key name will be instead set as `$$__INTENTIONAL_NULL_KEY__$$`.

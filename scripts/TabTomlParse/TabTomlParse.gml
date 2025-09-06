@@ -307,7 +307,7 @@ function __TabTomlLexer(_str) constructor {
 		}
 
 		if (buffer_tell(__buff) == _pos+1) {
-			__peekValue = "$$__INTENTIONALLY_NULL_KEY__$$";
+			__peekValue = "$$__INTENTIONAL_NULL_KEY__$$";
 			return;
 		}
               
