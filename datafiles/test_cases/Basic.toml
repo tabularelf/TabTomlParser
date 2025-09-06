@@ -2,6 +2,8 @@
 key = "value" # This is a comment at the end of a line
 another = "#This is not a comment"
 
+foo="bar"
+
 bare_key = "value"
 bare-key = "value"
 1234 = "value"

@@ -293,6 +293,12 @@ function __TabTomlLexer(_str) constructor {
 				}
 			}
 			_str += chr(_charCode);
+
+			// This is allowed
+			if (buffer_peek(__buff, buffer_tell(__buff), buffer_u8) == ord("=")) {
+				break;
+			}
+
 			_charCode = NextCharCode();
 		}
 
