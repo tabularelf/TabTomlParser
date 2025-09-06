@@ -1,0 +1,25 @@
+[[list.fruits]]
+name = "orange"
+sku = 1234141412
+
+[[list.fruits]]
+name = "apple"
+sku = 1234152354
+
+[[products]]
+name = "Hammer"
+sku = 738594937
+
+[[products]]
+name = "Nail"
+sku = 284758393
+
+color = "gray"
+
+[fruit.physical]  # subtable, but to which parent element should it belong?
+color = "red"
+shape = "round"
+
+points = [ { x = 1, y = 2, z = 3 },
+           { x = 7, y = 8, z = 9 },
+           { x = 2, y = 4, z = 8 } ]

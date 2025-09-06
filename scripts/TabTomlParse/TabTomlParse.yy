@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"TabTomlParse",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"TabTomlParse",
+  "parent":{
+    "name":"TabTomlParser",
+    "path":"folders/TabTomlParser.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

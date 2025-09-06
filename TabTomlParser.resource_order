@@ -1,0 +1,8 @@
+{
+  "FolderOrderSettings":[
+    {"name":"TabTomlParser","order":4,"path":"folders/TabTomlParser.yy",},
+  ],
+  "ResourceOrderSettings":[
+    {"name":"TestCase","order":3,"path":"scripts/TestCase/TestCase.yy",},
+  ],
+}
