@@ -249,23 +249,23 @@ function __TabTomlLexer(_str) constructor {
 		}
 	
 		while(!__IsSpaceOrTab((_charCode))) {
-			if (__IsWhiteSpace(_charCode)) {
-				Error($"Cannot end on a newline! Expected \"{_str} = EXPRESSION\", got \"{_str}\"");
-				return;
-			}
-	
-			if (!CharCodeIsAlphabetical(_charCode) && !CharCodeIsNumerical(_charCode) && (_charCode != ord("-")) && (_charCode != ord("_")) && (_charCode != ord("."))) {
-				Error($"Cannot use \"{chr(_charCode)}\" as apart of key name! Expected \"A-Za-z0-9_-\"");
-				return;
-			}
-
-			if (_isNumericKey && !CharCodeIsNumerical(_charCode)) {
-				Error($"Cannot use \"{chr(_charCode)}\" as apart of ASCII digit key! Expected 0-9!");
-				return;
-			}
-
 			if (_charCode == ord(".")) {
 				__peekType = __TabTomlType.KEY_TARGET_CHANGE;
+			} else {
+				if (__IsWhiteSpace(_charCode)) {
+					Error($"Cannot end on a newline! Expected \"{_str} = EXPRESSION\", got \"{_str}\"");
+					return;
+				}
+	        	
+				if (!CharCodeIsAlphabetical(_charCode) && !CharCodeIsNumerical(_charCode) && (_charCode != ord("-")) && (_charCode != ord("_")) && (_charCode != ord("."))) {
+					Error($"Cannot use \"{chr(_charCode)}\" as apart of key name! Expected \"A-Za-z0-9_-\"");
+					return;
+				}
+            	
+				if (_isNumericKey && !CharCodeIsNumerical(_charCode)) {
+					Error($"Cannot use \"{chr(_charCode)}\" as apart of ASCII digit key! Expected 0-9!");
+					return;
+				}
 			}
 			_str += chr(_charCode);
 			_charCode = NextCharCode();

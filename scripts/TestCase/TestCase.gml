@@ -15,6 +15,12 @@ try {
 }
 
 try {
+	show_debug_message(TabTomlParse("3.14159 = \"pi\""));
+} catch(_ex) {
+	show_debug_message(_ex.message);
+}
+
+try {
 	show_debug_message(TabTomlParse("[[test]]\nrawr = 42\n[test]\nfoo = \"bar\""));
 } catch(_ex) {
 	show_debug_message(_ex.message);
