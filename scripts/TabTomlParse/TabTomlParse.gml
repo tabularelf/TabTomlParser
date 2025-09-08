@@ -250,7 +250,7 @@ function __TabTomlLexer(_str) constructor {
 	
 		while(!EOF()) {
 			if (__IsSpaceOrTab(_charCode)) {
-				if (!buffer_peek(__buff, buffer_tell(__buff), buffer_u8) == ord(".")) {
+				if (!PeekAheadCharCode() == ord(".")) {
 					break;
 				}
 
@@ -268,9 +268,9 @@ function __TabTomlLexer(_str) constructor {
 			}
 
 			if (_charCode == ord(".")) {
-				if (__IsWhiteSpace(buffer_peek(__buff, buffer_tell(__buff), buffer_u8))) {
+				if (__IsWhiteSpace(PeekAheadCharCode())) {
 					NextCharCode();
-					while(__IsWhiteSpace(buffer_peek(__buff, buffer_tell(__buff), buffer_u8))) {
+					while(__IsWhiteSpace(PeekAheadCharCode())) {
 						NextCharCode();
 					}
 				} 
@@ -295,7 +295,7 @@ function __TabTomlLexer(_str) constructor {
 			_str += chr(_charCode);
 
 			// This is allowed
-			if (buffer_peek(__buff, buffer_tell(__buff), buffer_u8) == ord("=")) {
+			if (PeekAheadCharCode() == ord("=")) {
 				break;
 			}
 
@@ -356,6 +356,10 @@ function __TabTomlLexer(_str) constructor {
 		} finally {
 			buffer_resize(__buffStr, 1);
 		}
+	}
+
+	static PeekAheadCharCode = function() {
+		return buffer_peek(__buff, buffer_tell(__buff), buffer_u8);
 	}
 
 	static __IsSpaceOrTab = function(_charCode) {
@@ -570,7 +574,7 @@ function __TabTomlLexer(_str) constructor {
 		// Integer handling
 		while(true) {
 			if (__IsWhiteSpace()) {
-				if !CharCodeIsNumerical(buffer_peek(__buff, buffer_tell(__buff), buffer_u8)) {
+				if !CharCodeIsNumerical(PeekAheadCharCode()) {
 					break;
 				}
 			}
@@ -597,7 +601,7 @@ function __TabTomlLexer(_str) constructor {
 			if (!CharCodeIsNumerical(CurrentCharCode())) {
 				if (CurrentCharCode() != ord("_") && CurrentCharCode() != ord(".")) {
 					if (CurrentCharCode() != ord("e") && CurrentCharCode() != ord("E") && CurrentCharCode() != ord("+") && CurrentCharCode() != ord("-") && CurrentCharCode() != ord(":")) {
-						if ((CurrentCharCode() == ord(",") || CurrentCharCode() == ord("]")) && __IsWhiteSpace(buffer_peek(__buff, buffer_tell(__buff), buffer_u8))) {
+						if ((CurrentCharCode() == ord(",") || CurrentCharCode() == ord("]")) && __IsWhiteSpace(PeekAheadCharCode())) {
 							buffer_seek(__buff, buffer_seek_relative, -1);
 							break;
 						}
