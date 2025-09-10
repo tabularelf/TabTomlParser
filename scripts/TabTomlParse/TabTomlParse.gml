@@ -979,8 +979,8 @@ function __TabTomlParseRfc3339(_str) {
     	        if (_signPos == 0) _signPos = string_pos("-", _timePart);
     	        if (_signPos > 0) {
     	            if (string_char_at(_timePart, _signPos) == "-") _offsetSign = -1;
-    	            offset_hour = real(string_copy(_timePart, _signPos + 1, 2));
-    	            offset_min = real(string_copy(_timePart, _signPos + 4, 2));
+    	            _offsetHour = real(string_copy(_timePart, _signPos + 1, 2));
+    	            _offsetMin = real(string_copy(_timePart, _signPos + 4, 2));
     	            _timePart = string_copy(_timePart, 1, _signPos - 1);
     	        }
     	    }
