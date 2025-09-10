@@ -69,10 +69,16 @@ function __TabTomlParser(_str) constructor {
 					var _keyTarget = array_shift(_keys);
 					__target[$ _keyTarget] ??= {};
 					__target = __target[$ _keyTarget];
- 					if (is_array(__target)) {
+ 					if (is_array(__target) && array_length(__target) == 0) {
 						Error($"Array with the name \"{_keyTarget}\" already exists! Cannot redefine as an Array Table!");
 						return;
 					}
+					if (is_array(__target)) {
+						var _newTarget = {};
+						array_push(__target, _newTarget);
+						__target = _newTarget;
+					}
+
 					repeat(array_length(_keys)) {
 						if (!is_undefined(__target[$ _keys[_i]])) && (!is_array(__target[$ _keys[_i]])) {
 							Error($"Table with the name \"{_keys[_i]}\" already exists! Cannot redefine as an Array Table!");
@@ -102,10 +108,16 @@ function __TabTomlParser(_str) constructor {
 					var _keyTarget = array_shift(_keys);
 					__target[$ _keyTarget] ??= {};
 					__target = __target[$ _keyTarget];
-					if (is_array(__target)) {
+					if (is_array(__target) && array_length(__target) == 0) {
 						Error($"Array with the name \"{_keyTarget}\" already exists! Cannot redefine as a table!");
 						return;
 					}
+					if (is_array(__target)) {
+						var _newTarget = {};
+						array_push(__target, _newTarget);
+						__target = _newTarget;
+					}
+
 					repeat(array_length(_keys)) {
 						__target[$ _keys[_i]] ??= {};
 						__target = __target[$ _keys[_i]];
