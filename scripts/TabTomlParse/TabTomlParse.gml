@@ -94,7 +94,12 @@ function __TabTomlParser(_str) constructor {
 						return;
 					}
 					__target[$ _key] ??= [];
-					__target = __target[$ _key];
+					var _newTarget = __target[$ _key];
+					if (is_array(_newTarget)) {
+						var _newTargetStruct = {};
+						array_push(_newTarget, _newTargetStruct);
+						__target = _newTargetStruct;
+					}
 				}
 				
 				__tableRoot = __target;
